@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import type { Assignment } from '../types';
 import { AssignmentCard } from './AssignmentCard';
-import { usePinStore, type PinState } from '../../pins/usePinStore';
+import { usePinStore } from '../../pins/usePinStore';
 import { useAppDispatch } from '../../../app/hooks';
 import { toggleAssignment, deleteAssignment } from '../assignmentsSlice';
 import { FixedSizeList, type ListChildComponentProps } from 'react-window';
@@ -21,20 +21,18 @@ export const AssignmentList: React.FC<AssignmentListProps> = ({
   enableVirtualizationDefault = true
 }) => {
   const dispatch = useAppDispatch();
-  const pinnedIds = usePinStore((state: PinState) => state.pinnedIds);
-  const togglePin = usePinStore((state: PinState) => state.togglePin);
+  const pinnedIds = usePinStore((state) => state.pinnedIds);
+  const togglePin = usePinStore((state) => state.togglePin);
 
-  // Cho phép chuyển đổi linh hoạt giữa chế độ Virtualization (react-window) và Standard Grid để đo lường
-  const [isVirtualized, setIsVirtualized] = useState<boolean>(() => {
+  const [isVirtualized, setIsVirtualized] = useState(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       if (params.get('mode') === 'unoptimized') return false;
       if (params.get('mode') === 'optimized') return true;
     }
-    return items.length > 50 ? true : enableVirtualizationDefault;
+    return items.length > 50 || enableVirtualizationDefault;
   });
 
-  // Kỹ thuật 1: useCallback cho các handler truyền xuống AssignmentCard
   const handleToggle = useCallback(
     (id: string) => {
       dispatch(toggleAssignment(id));
@@ -58,7 +56,6 @@ export const AssignmentList: React.FC<AssignmentListProps> = ({
     [togglePin]
   );
 
-  // 1. Trạng thái Loading (Kiểm thử bất đồng bộ)
   if (status === 'loading') {
     return (
       <div className="loading-box" data-testid="assignment-loading-state">
@@ -68,7 +65,6 @@ export const AssignmentList: React.FC<AssignmentListProps> = ({
     );
   }
 
-  // 2. Trạng thái Lỗi (Kiểm thử bất đồng bộ)
   if (status === 'failed') {
     return (
       <div className="form-error-banner error-state-box" data-testid="assignment-error-state">
@@ -78,7 +74,6 @@ export const AssignmentList: React.FC<AssignmentListProps> = ({
     );
   }
 
-  // 3. Trạng thái Danh sách rỗng
   if (items.length === 0) {
     return (
       <div className="empty-state-card" data-testid="assignment-empty-state">
@@ -89,7 +84,6 @@ export const AssignmentList: React.FC<AssignmentListProps> = ({
     );
   }
 
-  // Row renderer cho react-window
   const VirtualRow: React.FC<ListChildComponentProps> = ({ index, style }) => {
     const item = items[index];
     const isPinned = pinnedIds.includes(item.id);
@@ -109,7 +103,6 @@ export const AssignmentList: React.FC<AssignmentListProps> = ({
 
   return (
     <div className="assignment-list-container" data-testid="assignment-list-container">
-      {/* Thanh điều khiển chế độ hiển thị & thông tin số lượng */}
       <div className="list-toolbar">
         <span className="list-count-info">
           Hiển thị <strong>{items.length.toLocaleString('vi-VN')}</strong> bài tập
@@ -140,7 +133,6 @@ export const AssignmentList: React.FC<AssignmentListProps> = ({
         )}
       </div>
 
-      {/* Kỹ thuật 3: Virtualization bằng react-window khi bật hoặc danh sách lớn */}
       {isVirtualized && items.length > 20 ? (
         <div className="virtualized-list-wrapper" data-testid="virtualized-list">
           <FixedSizeList

@@ -24,7 +24,6 @@ describe('Zustand Test: usePinStore (Yêu cầu Phần A)', () => {
     usePinStore.getState().togglePin('task-1');
     expect(usePinStore.getState().isPinned('task-1')).toBe(true);
 
-    // Bấm lại lần 2 để bỏ ghim
     usePinStore.getState().togglePin('task-1');
     expect(usePinStore.getState().pinnedIds).not.toContain('task-1');
     expect(usePinStore.getState().isPinned('task-1')).toBe(false);

@@ -39,7 +39,6 @@ describe('Async Tests: AssignmentList với các trạng thái API Mock (Yêu c�
     expect(loadingBox).toBeInTheDocument();
     expect(screen.getByText(/đang tải danh sách bài tập từ mock api/i)).toBeInTheDocument();
 
-    // Không render danh sách thẻ bài tập khi đang tải
     expect(screen.queryByTestId('assignment-list-container')).not.toBeInTheDocument();
   });
 
@@ -56,7 +55,6 @@ describe('Async Tests: AssignmentList với các trạng thái API Mock (Yêu c�
     expect(screen.getByText('Bài tập 1: Redux Toolkit')).toBeInTheDocument();
     expect(screen.getByText('Bài tập 2: Query Tuning')).toBeInTheDocument();
 
-    // Kiểm tra số lượng bài tập hiển thị trên thanh toolbar
     expect(screen.getByText(/hiển thị/i)).toBeInTheDocument();
   });
 
@@ -75,7 +73,6 @@ describe('Async Tests: AssignmentList với các trạng thái API Mock (Yêu c�
     expect(errorBox).toBeInTheDocument();
     expect(screen.getByText(errorMessage)).toBeInTheDocument();
 
-    // Không render danh sách rỗng hay danh sách thành công
     expect(screen.queryByTestId('assignment-empty-state')).not.toBeInTheDocument();
   });
 

@@ -9,20 +9,12 @@ export interface PinState {
 
 export const usePinStore = create<PinState>((set, get) => ({
   pinnedIds: [],
-  togglePin: (id: string) => {
-    set((state) => {
-      const exists = state.pinnedIds.includes(id);
-      return {
-        pinnedIds: exists
-          ? state.pinnedIds.filter((pinnedId) => pinnedId !== id)
-          : [id, ...state.pinnedIds]
-      };
-    });
-  },
-  isPinned: (id: string) => {
-    return get().pinnedIds.includes(id);
-  },
-  clearPins: () => {
-    set({ pinnedIds: [] });
-  }
+  togglePin: (id) =>
+    set((state) => ({
+      pinnedIds: state.pinnedIds.includes(id)
+        ? state.pinnedIds.filter((pinnedId) => pinnedId !== id)
+        : [id, ...state.pinnedIds]
+    })),
+  isPinned: (id) => get().pinnedIds.includes(id),
+  clearPins: () => set({ pinnedIds: [] })
 }));

@@ -17,7 +17,6 @@ export interface AssignmentStatsProps {
 }
 
 export const AssignmentStats: React.FC<AssignmentStatsProps> = ({ items, onClose }) => {
-  // Tính toán số liệu thống kê qua helper calcStats
   const stats = useMemo(() => calcStats(items), [items]);
 
   const coursesList = Object.entries(stats.byCourse);
@@ -42,7 +41,6 @@ export const AssignmentStats: React.FC<AssignmentStatsProps> = ({ items, onClose
         )}
       </div>
 
-      {/* Grid thẻ số liệu tổng quan */}
       <div className="stats-metric-grid">
         <div className="stat-card">
           <div className="stat-card-header">
@@ -83,7 +81,6 @@ export const AssignmentStats: React.FC<AssignmentStatsProps> = ({ items, onClose
         </div>
       </div>
 
-      {/* Thanh tiến độ tổng thể */}
       <div className="progress-section">
         <div className="progress-label-row">
           <span>Tiến độ hoàn thành bài tập tổng thể</span>
@@ -101,7 +98,6 @@ export const AssignmentStats: React.FC<AssignmentStatsProps> = ({ items, onClose
         </div>
       </div>
 
-      {/* Thống kê chi tiết theo từng môn học */}
       <div className="course-breakdown-section">
         <div className="section-title-row">
           <BookOpen size={18} />
@@ -154,7 +150,6 @@ export const AssignmentStats: React.FC<AssignmentStatsProps> = ({ items, onClose
         </div>
       </div>
 
-      {/* Phân bổ theo mức độ ưu tiên */}
       <div className="priority-breakdown-section">
         <div className="section-title-row">
           <Award size={18} />

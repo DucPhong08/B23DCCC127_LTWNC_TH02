@@ -30,14 +30,11 @@ describe('Component Test: AssignmentCard (RTL + userEvent)', () => {
       />
     );
 
-    // Kiểm tra môn học và tiêu đề
     expect(screen.getByText('Lập trình Web nâng cao')).toBeInTheDocument();
     expect(screen.getByText('Nâng cấp Student Deadline Tracker')).toBeInTheDocument();
 
-    // Kiểm tra badge độ ưu tiên
     expect(screen.getByText('Khẩn cấp')).toBeInTheDocument();
 
-    // Kiểm tra nút hành động hiển thị
     expect(screen.getByRole('button', { name: /hoàn thành bài tập/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /ghim bài tập/i })).toBeInTheDocument();
   });
@@ -86,7 +83,6 @@ describe('Component Test: AssignmentCard (RTL + userEvent)', () => {
       />
     );
 
-    // Kiểm tra badge "Đã hoàn thành"
     expect(screen.getByText('Đã hoàn thành')).toBeInTheDocument();
 
     const reopenBtn = screen.getByRole('button', { name: /làm lại bài tập/i });
@@ -118,7 +114,6 @@ describe('Component Test: AssignmentCard (RTL + userEvent)', () => {
     expect(onTogglePin).toHaveBeenCalledTimes(1);
     expect(onTogglePin).toHaveBeenCalledWith('asg-test-1');
 
-    // Rerender với trạng thái isPinned = true
     rerender(
       <AssignmentCard
         item={mockAssignment}

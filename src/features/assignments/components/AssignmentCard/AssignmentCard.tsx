@@ -12,7 +12,6 @@ export interface AssignmentCardProps {
   onTogglePin: (id: string) => void;
 }
 
-// Kỹ thuật 1: React.memo cho AssignmentCard để ngăn re-render không cần thiết
 const AssignmentCardComponent: React.FC<AssignmentCardProps> = ({
   item,
   isPinned = false,
@@ -32,7 +31,6 @@ const AssignmentCardComponent: React.FC<AssignmentCardProps> = ({
     >
       {isPinned && <div className="pinned-indicator-bar" title="Đã ghim lên đầu danh sách" />}
 
-      {/* Header */}
       <header className="card-header">
         <div className="course-tag">
           <BookOpen size={14} />
@@ -65,7 +63,6 @@ const AssignmentCardComponent: React.FC<AssignmentCardProps> = ({
         </div>
       </header>
 
-      {/* Content */}
       <div className="card-content">
         <h3 className={`card-title ${item.isCompleted ? 'completed-text' : ''}`}>
           {item.title}
@@ -76,7 +73,6 @@ const AssignmentCardComponent: React.FC<AssignmentCardProps> = ({
         </div>
       </div>
 
-      {/* Footer */}
       <footer className="card-footer">
         <div className="card-due-badge">
           {item.isCompleted ? (

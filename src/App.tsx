@@ -19,12 +19,10 @@ import {
   Sparkles
 } from 'lucide-react';
 
-// Kỹ thuật 4: React.lazy và Suspense cho trang Thống kê
 const LazyAssignmentStats = lazy(
   () => import('./features/assignments/components/AssignmentStats')
 );
 
-// Loading Skeleton cho Suspense
 const StatsLoadingFallback: React.FC = () => (
   <div className="stats-loading-skeleton" data-testid="stats-loading-fallback">
     <div className="skeleton-title" />
@@ -42,17 +40,13 @@ export const AppContent: React.FC = () => {
   const dispatch = useAppDispatch();
   const { items, status, error } = useAppSelector((state) => state.assignments);
 
-  // Zustand usePinStore
   const pinnedIds = usePinStore((state) => state.pinnedIds);
   const clearPins = usePinStore((state) => state.clearPins);
 
-  // Theme Context
   const { theme, toggleTheme } = useTheme();
 
-  // Chuyển đổi giữa chế độ xem Danh sách và Thống kê
   const [activeView, setActiveView] = useState<'tracker' | 'stats'>('tracker');
 
-  // Custom hook lọc, tìm kiếm (useDebounce 300ms) và sort theo pin
   const {
     filter,
     setFilter,
@@ -63,7 +57,6 @@ export const AppContent: React.FC = () => {
     counts
   } = useAssignmentFilter(items, pinnedIds);
 
-  // Tải dữ liệu ban đầu hoặc tự động kích hoạt stress test qua URL
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
@@ -76,13 +69,11 @@ export const AppContent: React.FC = () => {
     dispatch(fetchInitialAssignments());
   }, [dispatch]);
 
-  // Stress test: Tạo 10.000 bài tập mẫu
   const handleGenerate10k = useCallback(() => {
     const mock10k = generateMockAssignments(10000);
     dispatch(loadBulkAssignments(mock10k));
   }, [dispatch]);
 
-  // Đặt lại dữ liệu ban đầu
   const handleReset = useCallback(() => {
     clearPins();
     dispatch(resetAssignments());
@@ -90,7 +81,6 @@ export const AppContent: React.FC = () => {
 
   return (
     <div className={`app-container theme-${theme}`}>
-      {/* Header */}
       <header className="app-header">
         <div className="header-top">
           <div className="brand-title">
@@ -109,7 +99,6 @@ export const AppContent: React.FC = () => {
           </div>
 
           <div className="header-actions-panel">
-            {/* Thống kê nhanh trên Header */}
             <div className="header-stats">
               <div className="stat-pill" title="Tổng số bài tập hiện tại">
                 <span>Tổng bài:</span>
@@ -129,7 +118,6 @@ export const AppContent: React.FC = () => {
               </div>
             </div>
 
-            {/* Nút chuyển đổi Theme Sáng / Tối */}
             <button
               type="button"
               className="btn-theme-toggle"
@@ -153,7 +141,6 @@ export const AppContent: React.FC = () => {
           </div>
         </div>
 
-        {/* Action Bar phụ: Stress test & Chuyển View Tracker / Thống kê */}
         <div className="header-toolbar">
           <div className="view-switch-tabs">
             <button
@@ -201,7 +188,6 @@ export const AppContent: React.FC = () => {
         </div>
       </header>
 
-      {/* Main Content Area */}
       <main className="main-layout">
         {activeView === 'tracker' ? (
           <>

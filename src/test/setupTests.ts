@@ -1,6 +1,5 @@
 import '@testing-library/jest-dom';
 
-// Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: (query: string) => ({
@@ -15,5 +14,4 @@ Object.defineProperty(window, 'matchMedia', {
   })
 });
 
-// Mock window.confirm
 window.confirm = () => true;

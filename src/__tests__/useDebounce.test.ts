@@ -24,15 +24,12 @@ describe('Hook Test: useDebounce bằng renderHook và fake timers (Yêu cầu P
       }
     );
 
-    // Thay đổi giá trị truyền vào
     rerender({ value: 'giá trị mới', delay: 300 });
 
-    // Khi chỉ mới trôi qua 150ms (< 300ms)
     act(() => {
       vi.advanceTimersByTime(150);
     });
 
-    // Giá trị debounced vẫn là giá trị cũ
     expect(result.current).toBe('giá trị cũ');
   });
 
@@ -46,7 +43,6 @@ describe('Hook Test: useDebounce bằng renderHook và fake timers (Yêu cầu P
 
     rerender({ value: 'lập trình web nâng cao', delay: 300 });
 
-    // Tua nhanh đồng hồ thêm 300ms
     act(() => {
       vi.advanceTimersByTime(300);
     });
@@ -62,26 +58,22 @@ describe('Hook Test: useDebounce bằng renderHook và fake timers (Yêu cầu P
       }
     );
 
-    // Người dùng gõ 'ab' sau 100ms
     act(() => {
       vi.advanceTimersByTime(100);
     });
     rerender({ value: 'ab' });
     expect(result.current).toBe('a');
 
-    // Người dùng gõ 'abc' sau thêm 100ms
     act(() => {
       vi.advanceTimersByTime(100);
     });
     rerender({ value: 'abc' });
     expect(result.current).toBe('a');
 
-    // Người dùng dừng gõ, sau đủ 300ms tiếp theo
     act(() => {
       vi.advanceTimersByTime(300);
     });
 
-    // Chỉ giá trị cuối cùng 'abc' được cập nhật
     expect(result.current).toBe('abc');
   });
 

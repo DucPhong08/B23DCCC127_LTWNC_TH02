@@ -34,11 +34,8 @@ export const AssignmentForm: React.FC<AssignmentFormProps> = ({ onSubmitSuccess 
     };
 
     dispatch(addAssignment(payload));
-    if (onSubmitSuccess) {
-      onSubmitSuccess(payload);
-    }
+    onSubmitSuccess?.(payload);
 
-    // Reset form
     setCourse('');
     setTitle('');
     setDueDate('');

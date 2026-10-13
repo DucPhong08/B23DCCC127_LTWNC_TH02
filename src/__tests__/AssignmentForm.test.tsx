@@ -24,12 +24,10 @@ describe('Component Test: AssignmentForm (RTL + userEvent)', () => {
     const submitBtn = screen.getByRole('button', { name: /thêm bài tập/i });
     await user.click(submitBtn);
 
-    // Kiểm tra thông báo lỗi xuất hiện
     const errorBanner = screen.getByRole('alert');
     expect(errorBanner).toBeInTheDocument();
     expect(errorBanner).toHaveTextContent('Vui lòng nhập đầy đủ môn học, tên bài tập và hạn nộp!');
 
-    // Không được gọi callback submit thành công
     expect(onSubmitSuccess).not.toHaveBeenCalled();
   });
 
@@ -39,7 +37,6 @@ describe('Component Test: AssignmentForm (RTL + userEvent)', () => {
 
     renderWithProviders(<AssignmentForm onSubmitSuccess={onSubmitSuccess} />);
 
-    // Chỉ nhập môn học mà không nhập tên bài tập và hạn nộp
     const courseInput = screen.getByLabelText(/môn học/i);
     await user.type(courseInput, 'Lập trình Web');
 
@@ -63,7 +60,6 @@ describe('Component Test: AssignmentForm (RTL + userEvent)', () => {
     const dueDateInput = screen.getByLabelText(/hạn nộp/i) as HTMLInputElement;
     const prioritySelect = screen.getByLabelText(/độ ưu tiên/i) as HTMLSelectElement;
 
-    // Nhập dữ liệu hợp lệ
     await user.type(courseInput, 'Kiến trúc phần mềm');
     await user.type(titleInput, 'Thiết kế hệ thống Microservices');
     await user.type(dueDateInput, '2026-10-30');
@@ -72,7 +68,6 @@ describe('Component Test: AssignmentForm (RTL + userEvent)', () => {
     const submitBtn = screen.getByRole('button', { name: /thêm bài tập/i });
     await user.click(submitBtn);
 
-    // Callback onSubmitSuccess được gọi
     expect(onSubmitSuccess).toHaveBeenCalledTimes(1);
     expect(onSubmitSuccess).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -84,17 +79,14 @@ describe('Component Test: AssignmentForm (RTL + userEvent)', () => {
       })
     );
 
-    // Kiểm tra state của store đã được thêm bài tập mới
     const state = store.getState();
     expect(state.assignments.items).toHaveLength(1);
     expect(state.assignments.items[0].title).toBe('Thiết kế hệ thống Microservices');
 
-    // Form inputs đã được reset
     expect(courseInput.value).toBe('');
     expect(titleInput.value).toBe('');
     expect(dueDateInput.value).toBe('');
 
-    // Không còn thông báo lỗi
     expect(screen.queryByRole('alert')).not.toBeInTheDocument();
   });
 });

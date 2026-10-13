@@ -41,12 +41,10 @@ describe('Integration Tests: AssignmentFilter & AssignmentStats', () => {
 
   describe('useAssignmentFilter hook logic', () => {
     it('sắp xếp bài tập đã ghim luôn hiện lên đầu danh sách', () => {
-      // Ghim bài asg-3 (vốn ở vị trí cuối)
       const { result } = renderHook(() =>
         useAssignmentFilter(sampleItems, ['asg-3'])
       );
 
-      // asg-3 phải nhảy lên đầu danh sách
       expect(result.current.filteredItems[0].id).toBe('asg-3');
       expect(result.current.filteredItems[1].id).toBe('asg-1');
       expect(result.current.filteredItems[2].id).toBe('asg-2');
@@ -57,14 +55,12 @@ describe('Integration Tests: AssignmentFilter & AssignmentStats', () => {
         useAssignmentFilter(sampleItems, [])
       );
 
-      // Chuyển sang COMPLETED
       act(() => {
         result.current.setFilter('COMPLETED');
       });
       expect(result.current.filteredItems).toHaveLength(1);
       expect(result.current.filteredItems[0].id).toBe('asg-2');
 
-      // Chuyển sang OVERDUE
       act(() => {
         result.current.setFilter('OVERDUE');
       });
@@ -91,12 +87,10 @@ describe('Integration Tests: AssignmentFilter & AssignmentStats', () => {
         />
       );
 
-      // Gõ vào ô tìm kiếm
       const searchInput = screen.getByTestId('search-input');
       await user.type(searchInput, 'Web');
       expect(onSearchChange).toHaveBeenCalled();
 
-      // Click tab "Đã hoàn thành"
       const completedTab = screen.getByTestId('filter-tab-completed');
       await user.click(completedTab);
       expect(onFilterChange).toHaveBeenCalledWith('COMPLETED');
@@ -115,12 +109,10 @@ describe('Integration Tests: AssignmentFilter & AssignmentStats', () => {
       expect(screen.getByTestId('assignment-stats-view')).toBeInTheDocument();
       expect(screen.getByText('Bảng Thống kê & Phân tích Tiến độ')).toBeInTheDocument();
 
-      // Kiểm tra có hiển thị tên các môn học trong bảng
       expect(screen.getByText('Lập trình Web nâng cao')).toBeInTheDocument();
       expect(screen.getByText('Kiến trúc phần mềm')).toBeInTheDocument();
       expect(screen.getByText('Cơ sở dữ liệu')).toBeInTheDocument();
 
-      // Click nút Đóng
       const closeBtn = screen.getByRole('button', { name: /đóng/i });
       await user.click(closeBtn);
       expect(onClose).toHaveBeenCalledTimes(1);

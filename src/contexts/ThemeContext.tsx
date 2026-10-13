@@ -43,7 +43,6 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, defaultT
     setThemeState(newTheme);
   };
 
-  // Bọc value bằng useMemo theo đúng yêu cầu đề bài
   const value = useMemo<ThemeContextValue>(
     () => ({
       theme,

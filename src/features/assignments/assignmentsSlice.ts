@@ -75,7 +75,6 @@ export const {
   resetAssignments
 } = assignmentsSlice.actions;
 
-// Aliases cho Bài thực hành 01
 export const addDeadline = addAssignment;
 export const toggleDeadline = toggleAssignment;
 export const deleteDeadline = deleteAssignment;

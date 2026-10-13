@@ -13,35 +13,25 @@ async function measure() {
     args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage', '--window-size=1440,900']
   });
 
-  // ==========================================
-  // GIAI ĐOẠN 1: ĐO SAU TỐI ƯU (OPTIMIZED)
-  // ==========================================
   const pageOpt = await browser.newPage();
   await pageOpt.setViewport({ width: 1440, height: 900 });
 
-  // Theo dõi số lần render qua evaluate
   await pageOpt.goto('http://localhost:5173?stress=10k&mode=optimized', { waitUntil: 'networkidle2' });
   await pageOpt.waitForSelector('.virtualized-list-wrapper');
 
   const optDomNodes = await pageOpt.evaluate(() => document.querySelectorAll('*').length);
   const optCardDomCount = await pageOpt.evaluate(() => document.querySelectorAll('.assignment-card').length);
 
-  // Gõ vào ô tìm kiếm 3 ký tự: "Web"
   const optStartTime = Date.now();
   await pageOpt.type('[data-testid="search-input"]', 'Web', { delay: 50 });
-  // Chờ debounce 300ms
   await new Promise((r) => setTimeout(r, 400));
   const optInputDuration = Date.now() - optStartTime;
 
   console.log(`[Optimized] DOM nodes: ${optDomNodes}, Rendered cards in viewport: ${optCardDomCount}, Input response: ${optInputDuration}ms`);
 
-  // ==========================================
-  // GIAI ĐOẠN 2: ĐO TRƯỚC TỐI ƯU (UNOPTIMIZED)
-  // ==========================================
   const pageUnopt = await browser.newPage();
   await pageUnopt.setViewport({ width: 1440, height: 900 });
 
-  // Tải bản 10.000 phần tử không bật virtualization
   await pageUnopt.goto('http://localhost:5173?stress=10k&mode=unoptimized', { waitUntil: 'networkidle2' });
   await pageUnopt.waitForSelector('.assignment-grid');
 

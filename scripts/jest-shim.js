@@ -6,7 +6,6 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
 
-// Forward command-line arguments to vitest with global Jest compatibility
 const vitestBin = path.resolve(__dirname, '../node_modules/.bin/vitest');
 const vitestArgs = ['run', ...args];
 

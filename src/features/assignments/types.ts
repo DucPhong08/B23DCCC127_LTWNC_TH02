@@ -12,7 +12,6 @@ export interface Assignment {
   createdAt: string;
 }
 
-// Alias Deadline để tương thích tuyệt đối với mã nguồn Buổi 1
 export type Deadline = Assignment;
 
 export interface ApiResponse<T> {
@@ -49,10 +48,6 @@ export interface AssignmentStatsData {
   byPriority: Record<Priority, number>;
 }
 
-/**
- * Kiểm tra xem bài tập có bị quá hạn hay không.
- * Nếu đã hoàn thành => không coi là quá hạn.
- */
 export function isOverdue(dueDate: string, isCompleted: boolean = false): boolean {
   if (isCompleted) return false;
   if (!dueDate) return false;
@@ -60,18 +55,11 @@ export function isOverdue(dueDate: string, isCompleted: boolean = false): boolea
   const due = new Date(dueDate);
   if (isNaN(due.getTime())) return false;
 
-  // Tính đến cuối ngày của dueDate (23:59:59.999 theo giờ địa phương)
   due.setHours(23, 59, 59, 999);
   const now = new Date().getTime();
   return now > due.getTime();
 }
 
-/**
- * Tính số ngày còn lại đến hạn nộp:
- * > 0: Còn X ngày
- * = 0: Hạn chót hôm nay
- * < 0: Quá hạn |X| ngày
- */
 export function calcDaysLeft(dueDateStr: string): number {
   if (!dueDateStr) return 0;
   const targetDate = new Date(dueDateStr);
@@ -85,9 +73,6 @@ export function calcDaysLeft(dueDateStr: string): number {
   return Math.round(msDiff / (1000 * 60 * 60 * 24));
 }
 
-/**
- * Tính toán số liệu thống kê tổng hợp từ danh sách bài tập.
- */
 export function calcStats(items: Assignment[]): AssignmentStatsData {
   let completed = 0;
   let overdue = 0;

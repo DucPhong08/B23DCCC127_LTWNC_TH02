@@ -19,21 +19,13 @@ async function run() {
   const page = await browser.newPage();
   await page.setViewport({ width: 1440, height: 900 });
 
-  const consoleLogs = [];
   page.on('console', (msg) => {
     const text = msg.text();
-    consoleLogs.push({
-      type: msg.type(),
-      text,
-      time: new Date().toLocaleTimeString()
-    });
-    // Print redux-logger lines
     if (text.includes('action') || text.includes('prev state') || text.includes('next state') || text.includes('assignments/')) {
       console.log(`[Redux Logger]: ${text}`);
     }
   });
 
-  // Chấp nhận dialog confirm khi xoá bài tập
   page.on('dialog', async (dialog) => {
     console.log(`[Dialog]: ${dialog.message()}`);
     await dialog.accept();
@@ -42,14 +34,11 @@ async function run() {
   console.log('🌐 Điều hướng đến http://localhost:5173...');
   await page.goto('http://localhost:5173', { waitUntil: 'networkidle2' });
 
-  // Đợi dữ liệu khởi tạo mock load xong
   await page.waitForSelector('.assignment-card');
 
-  // 1. Chụp ảnh tổng quan giao diện Light Theme
   console.log('📸 1. Chụp ảnh tổng quan Light Theme...');
   await page.screenshot({ path: path.join(REPORTS_DIR, '01_ui_overview_light.png'), fullPage: true });
 
-  // 2. Chụp ảnh Ghim bài tập (Zustand Pin)
   console.log('📌 2. Ghim bài tập...');
   const firstPinBtn = await page.$('.btn-pin');
   if (firstPinBtn) {
@@ -58,7 +47,6 @@ async function run() {
   }
   await page.screenshot({ path: path.join(REPORTS_DIR, '02_pinned_assignment.png'), fullPage: true });
 
-  // 3. Thực hiện thao tác Redux: Thêm, Hoàn thành, Xoá bài tập
   console.log('➕ 3. Thực hiện thêm bài tập mới (Redux action addAssignment)...');
   await page.type('#course-input', 'An toàn thông tin');
   await page.type('#title-input', 'Thực hành khai thác lỗ hổng Web');
@@ -80,7 +68,6 @@ async function run() {
     await new Promise((r) => setTimeout(r, 500));
   }
 
-  // 4. Chụp ảnh Dark Theme
   console.log('🌙 6. Chuyển sang Dark Theme...');
   const themeBtn = await page.$('[data-testid="btn-theme-toggle"]');
   if (themeBtn) {
@@ -89,13 +76,11 @@ async function run() {
   }
   await page.screenshot({ path: path.join(REPORTS_DIR, '03_ui_overview_dark.png'), fullPage: true });
 
-  // Đổi lại light theme
   if (themeBtn) {
     await themeBtn.click();
     await new Promise((r) => setTimeout(r, 400));
   }
 
-  // 5. Chuyển sang Tab Thống kê (React.lazy & Suspense)
   console.log('📊 7. Mở Tab Thống kê (Lazy loading)...');
   const statsTab = await page.$('[data-testid="tab-view-stats"]');
   if (statsTab) {
@@ -105,14 +90,12 @@ async function run() {
     await page.screenshot({ path: path.join(REPORTS_DIR, '04_lazy_loaded_statistics.png'), fullPage: true });
   }
 
-  // Quay lại tab tracker
   const trackerTab = await page.$('[data-testid="tab-view-tracker"]');
   if (trackerTab) {
     await trackerTab.click();
     await new Promise((r) => setTimeout(r, 400));
   }
 
-  // 6. Kích hoạt Stress Test 10.000 bài tập
   console.log('⚡ 8. Tạo 10.000 bài tập mẫu (Stress test)...');
   const stressBtn = await page.$('[data-testid="btn-generate-10k"]');
   if (stressBtn) {
@@ -121,11 +104,7 @@ async function run() {
     await page.screenshot({ path: path.join(REPORTS_DIR, '05_stress_test_10k_virtualized.png'), fullPage: false });
   }
 
-  // 7. Tạo trang HTML hiển thị minh chứng Console Logs của Redux Logger
   console.log('📋 9. Xuất nhật ký Redux Logger ra file console_logger_evidence.html...');
-  const reduxActionLogs = consoleLogs.filter(
-    (l) => l.text.includes('action') || l.text.includes('assignments/') || l.text.includes('prev state') || l.text.includes('next state')
-  );
 
   const htmlContent = `<!DOCTYPE html>
 <html lang="vi">
@@ -173,7 +152,6 @@ async function run() {
 
   fs.writeFileSync(path.join(REPORTS_DIR, 'redux_logger_evidence.html'), htmlContent);
 
-  // Render trang HTML này và chụp ảnh màn hình làm bằng chứng console
   const consolePage = await browser.newPage();
   await consolePage.setViewport({ width: 1200, height: 600 });
   await consolePage.goto(`file://${path.join(REPORTS_DIR, 'redux_logger_evidence.html')}`);

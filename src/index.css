@@ -3,7 +3,6 @@
 :root {
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   
-  /* Light Theme Palette */
   --bg-primary: #f8fafc;
   --bg-secondary: #ffffff;
   --bg-card: #ffffff;
@@ -34,7 +33,6 @@
 
 [data-theme='dark'],
 .theme-dark {
-  /* Dark Theme Palette */
   --bg-primary: #0b0f17;
   --bg-secondary: #131b2e;
   --bg-card: #182238;
@@ -74,14 +72,12 @@ body {
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-/* Layout */
 .app-container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* Header */
 .app-header {
   background: var(--bg-secondary);
   border-bottom: 1px solid var(--border-color);
@@ -176,7 +172,6 @@ body {
   font-weight: 700;
 }
 
-/* Theme Toggle Button */
 .btn-theme-toggle {
   display: inline-flex;
   align-items: center;
@@ -199,7 +194,6 @@ body {
   transform: translateY(-1px);
 }
 
-/* Header Toolbar */
 .header-toolbar {
   display: flex;
   justify-content: space-between;
@@ -289,7 +283,6 @@ body {
   border-color: var(--border-strong);
 }
 
-/* Main Layout */
 .main-layout {
   max-width: 1440px;
   width: 100%;
@@ -308,7 +301,6 @@ body {
   }
 }
 
-/* Sidebar Form */
 .sidebar-form {
   display: flex;
   flex-direction: column;
@@ -441,7 +433,6 @@ body {
   color: #fde68a;
 }
 
-/* Filter Controls Container */
 .filter-controls-container {
   display: flex;
   flex-direction: column;
@@ -559,7 +550,6 @@ body {
   color: #ffffff;
 }
 
-/* Assignment List Toolbar */
 .list-toolbar {
   display: flex;
   justify-content: space-between;
@@ -610,7 +600,6 @@ body {
   color: #fde68a;
 }
 
-/* Cards Grid & Cards */
 .deadline-grid {
   display: flex;
   flex-direction: column;
@@ -644,7 +633,6 @@ body {
   opacity: 0.85;
 }
 
-/* Pinned Card Styling */
 .assignment-card.is-pinned-card {
   border-color: #f59e0b;
   box-shadow: 0 4px 12px rgba(245, 158, 11, 0.12);
@@ -758,7 +746,6 @@ body {
   border-top: 1px solid var(--border-subtle);
 }
 
-/* Status Badges */
 .status-badge {
   display: inline-flex;
   align-items: center;
@@ -817,7 +804,6 @@ body {
   border-color: rgba(37, 99, 235, 0.3);
 }
 
-/* Actions */
 .card-actions {
   display: flex;
   align-items: center;
@@ -879,7 +865,6 @@ body {
   border-color: #fca5a5;
 }
 
-/* Stats Section (React.lazy) */
 .stats-full-section {
   grid-column: 1 / -1;
   width: 100%;
@@ -1084,7 +1069,6 @@ body {
   border-color: rgba(22, 163, 74, 0.2);
 }
 
-/* Skeleton Loading cho Suspense */
 .stats-loading-skeleton {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -1129,7 +1113,6 @@ body {
   100% { opacity: 0.4; }
 }
 
-/* Empty & Loading */
 .empty-state-card {
   background: var(--bg-card);
   border: 2px dashed var(--border-strong);

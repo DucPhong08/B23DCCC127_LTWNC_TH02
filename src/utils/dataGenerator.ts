@@ -38,10 +38,6 @@ export function generateMockAssignments(count: number = 10000): Assignment[] {
     const taskIndex = (i * 3 + 1) % TASK_TEMPLATES.length;
     const priorityIndex = (i * 7) % PRIORITIES.length;
 
-    // Phân bổ ngày hạn:
-    // 20% quá hạn (-1 đến -15 ngày)
-    // 10% hạn hôm nay (0 ngày)
-    // 70% sắp tới (+1 đến +30 ngày)
     let offsetDays: number;
     const mod = i % 10;
     if (mod < 2) {
@@ -55,7 +51,6 @@ export function generateMockAssignments(count: number = 10000): Assignment[] {
     const dueDateObj = new Date(baseTime + offsetDays * 24 * 60 * 60 * 1000);
     const dueDate = dueDateObj.toISOString().split('T')[0];
 
-    // Trạng thái hoàn thành: khoảng 30% hoàn thành
     const isCompleted = i % 3 === 0;
 
     result[i] = {

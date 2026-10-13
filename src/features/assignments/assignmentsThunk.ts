@@ -6,7 +6,6 @@ export const fetchInitialAssignments = createAsyncThunk<ApiResponse<Assignment[]
   'assignments/fetchInitialAssignments',
   async (_, { rejectWithValue }) => {
     try {
-      // Giả lập độ trễ mạng 500ms
       await new Promise((resolve) => setTimeout(resolve, 500));
 
       const response: ApiResponse<Assignment[]> = {
@@ -23,5 +22,4 @@ export const fetchInitialAssignments = createAsyncThunk<ApiResponse<Assignment[]
   }
 );
 
-// Alias để tương thích ngược với mã nguồn Bài thực hành 01
 export const fetchInitialDeadlines = fetchInitialAssignments;

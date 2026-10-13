@@ -17,7 +17,6 @@ import assignmentsReducer, {
 import { setupTestStore } from '../app/store';
 
 describe('Unit Tests: Helpers & Reducer (Yêu cầu Phần C)', () => {
-  // 1. Kiểm thử isOverdue
   describe('isOverdue', () => {
     it('trả về false nếu bài tập đã hoàn thành, kể cả hạn nộp trong quá khứ', () => {
       expect(isOverdue('2020-01-01', true)).toBe(false);
@@ -43,7 +42,6 @@ describe('Unit Tests: Helpers & Reducer (Yêu cầu Phần C)', () => {
     });
   });
 
-  // 2. Kiểm thử calcDaysLeft
   describe('calcDaysLeft', () => {
     it('tính chính xác 0 ngày cho hạn chót hôm nay', () => {
       const today = new Date().toISOString().split('T')[0];
@@ -70,7 +68,6 @@ describe('Unit Tests: Helpers & Reducer (Yêu cầu Phần C)', () => {
     });
   });
 
-  // 3. Kiểm thử calcStats
   describe('calcStats', () => {
     it('tính toán chính xác cho danh sách rỗng (trường hợp biên)', () => {
       const stats = calcStats([]);
@@ -128,7 +125,6 @@ describe('Unit Tests: Helpers & Reducer (Yêu cầu Phần C)', () => {
     });
   });
 
-  // 4. Kiểm thử assignmentsSlice reducer
   describe('assignmentsSlice reducer', () => {
     it('reducer trả về initialState khi action không xác định', () => {
       const state = assignmentsReducer(undefined, { type: 'UNKNOWN_ACTION' });
@@ -171,11 +167,9 @@ describe('Unit Tests: Helpers & Reducer (Yêu cầu Phần C)', () => {
         error: null
       };
 
-      // Đảo từ false -> true
       let state = assignmentsReducer(prevState, toggleAssignment('test-1'));
       expect(state.items[0].isCompleted).toBe(true);
 
-      // Đảo lại từ true -> false
       state = assignmentsReducer(state, toggleAssignment('test-1'));
       expect(state.items[0].isCompleted).toBe(false);
     });
@@ -284,7 +278,6 @@ describe('Unit Tests: Helpers & Reducer (Yêu cầu Phần C)', () => {
     });
 
     it('extraReducers: xử lý các trạng thái của fetchInitialAssignments', () => {
-      // Pending
       let state = assignmentsReducer(
         initialState,
         fetchInitialAssignments.pending('req-1')
@@ -292,7 +285,6 @@ describe('Unit Tests: Helpers & Reducer (Yêu cầu Phần C)', () => {
       expect(state.status).toBe('loading');
       expect(state.error).toBeNull();
 
-      // Fulfilled
       const mockPayload = {
         data: [
           {
@@ -316,7 +308,6 @@ describe('Unit Tests: Helpers & Reducer (Yêu cầu Phần C)', () => {
       expect(state.status).toBe('succeeded');
       expect(state.items).toHaveLength(1);
 
-      // Rejected
       state = assignmentsReducer(
         state,
         fetchInitialAssignments.rejected(new Error('Lỗi mạng giả lập'), 'req-1')

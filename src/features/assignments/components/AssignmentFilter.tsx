@@ -49,7 +49,6 @@ export const AssignmentFilter: React.FC<AssignmentFilterProps> = ({
 
   return (
     <div className="filter-controls-container">
-      {/* Ô tìm kiếm áp dụng kỹ thuật useDebounce */}
       <div className="search-input-wrapper">
         <Search size={18} className="search-icon" />
         <input
@@ -78,7 +77,6 @@ export const AssignmentFilter: React.FC<AssignmentFilterProps> = ({
         )}
       </div>
 
-      {/* Tabs lọc trạng thái */}
       <div className="filter-tabs-wrapper">
         <div className="filter-tabs" role="tablist">
           {tabs.map((tab) => {
