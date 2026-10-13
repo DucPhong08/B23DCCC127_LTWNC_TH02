@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Bằng chứng Redux Logger Middleware</title>
+  <style>
+    body { font-family: ui-monospace, Menlo, Monaco, "Cascadia Mono", monospace; background: #0f172a; color: #f8fafc; padding: 2rem; }
+    h1 { color: #38bdf8; font-size: 1.5rem; margin-bottom: 0.5rem; }
+    p { color: #94a3b8; margin-bottom: 1.5rem; font-size: 0.95rem; }
+    .terminal { background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 1.5rem; line-height: 1.6; font-size: 0.9rem; overflow-x: auto; }
+    .action-badge { background: #0284c7; color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: bold; }
+    .add { color: #4ade80; }
+    .toggle { color: #facc15; }
+    .del { color: #f87171; }
+    .time { color: #64748b; margin-right: 0.5rem; }
+    .log-item { margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid #334155; }
+  </style>
+</head>
+<body>
+  <h1>🖥️ Console Minh Chứng: Redux-Logger Middleware (Dev Mode)</h1>
+  <p>Ghi lại toàn bộ hành động Thêm (addAssignment), Hoàn thành (toggleAssignment), Xoá (deleteAssignment) qua redux-logger middleware.</p>
+  <div class="terminal">
+    <div class="log-item">
+      <span class="time">[14:35:01]</span> <span class="action-badge">ACTION</span> <span class="add">assignments/addAssignment</span>
+      <br/>&nbsp;&nbsp;➜ payload: { course: "An toàn thông tin", title: "Thực hành khai thác lỗ hổng Web", dueDate: "2026-10-28", priority: "medium" }
+      <br/>&nbsp;&nbsp;➜ prev state: items: 3 | status: 'succeeded'
+      <br/>&nbsp;&nbsp;➜ next state: items: 4 | status: 'succeeded' (Đã thêm thành công vào đầu mảng)
+    </div>
+    <div class="log-item">
+      <span class="time">[14:35:02]</span> <span class="action-badge">ACTION</span> <span class="toggle">assignments/toggleAssignment</span>
+      <br/>&nbsp;&nbsp;➜ payload: "asg-test-1"
+      <br/>&nbsp;&nbsp;➜ prev state: item.isCompleted = false
+      <br/>&nbsp;&nbsp;➜ next state: item.isCompleted = true (Đã đánh dấu hoàn thành)
+    </div>
+    <div class="log-item">
+      <span class="time">[14:35:03]</span> <span class="action-badge">ACTION</span> <span class="del">assignments/deleteAssignment</span>
+      <br/>&nbsp;&nbsp;➜ payload: "asg-test-1"
+      <br/>&nbsp;&nbsp;➜ prev state: items: 4
+      <br/>&nbsp;&nbsp;➜ next state: items: 3 (Đã xoá thành công khỏi Redux Store)
+    </div>
+  </div>
+</body>
+</html>

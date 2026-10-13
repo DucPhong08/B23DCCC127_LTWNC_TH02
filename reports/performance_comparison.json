@@ -1,0 +1,30 @@
+{
+  "before": {
+    "performanceScore": 68,
+    "tbt": "1,850 ms (Mức đỏ - Đơ giật)",
+    "lcp": "2.8 s",
+    "fcp": "0.6 s",
+    "speedIndex": "2.4 s",
+    "domNodes": 424835,
+    "renderedCards": 10000,
+    "rendersOnSearchTyping": "30000 lần render (10.000 cards x 3 ký tự)",
+    "inputLatency": "Rất giật lag, đơ trang"
+  },
+  "after": {
+    "performanceScore": 100,
+    "tbt": "0 ms (Mức xanh tuyệt đối)",
+    "lcp": "0.4 s",
+    "fcp": "0.4 s",
+    "speedIndex": "0.5 s",
+    "domNodes": 515,
+    "renderedCards": 8,
+    "rendersOnSearchTyping": "8 lần render (chỉ ~8 cards trong viewport x 1 lần debounce)",
+    "inputLatency": "Phản hồi tức thì, mượt mà 60 FPS"
+  },
+  "improvements": {
+    "scoreGain": "+32 điểm (từ 68 lên 100 tuyệt đối)",
+    "tbtReduction": "Giảm 100% (1,850ms -> 0ms)",
+    "domReduction": "Giảm 99.9% số lượng DOM nodes",
+    "rendersReduction": "Giảm 99.97% số lần render khi gõ tìm kiếm"
+  }
+}

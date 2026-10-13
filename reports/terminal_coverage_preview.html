@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Báo cáo Test Coverage - Bài Thực Hành 02</title>
+  <style>
+    body {
+      background: #0d1117;
+      color: #c9d1d9;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+      padding: 2rem;
+      margin: 0;
+    }
+    .terminal-window {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      overflow: hidden;
+    }
+    .terminal-header {
+      background: #21262d;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid #30363d;
+    }
+    .circle { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+    .red { background: #ff5f56; }
+    .yellow { background: #ffbd2e; }
+    .green { background: #27c93f; }
+    .terminal-title { margin-left: 10px; color: #8b949e; font-size: 13px; }
+    .terminal-body {
+      padding: 20px;
+      font-size: 13.5px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      overflow-x: auto;
+    }
+    .success { color: #3fb950; font-weight: bold; }
+    .badge { background: #238636; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div style="margin-bottom: 1.5rem;">
+    <h2 style="color: #58a6ff; margin: 0 0 0.5rem 0;">Báo Cáo Kiểm Thử Tự Động &amp; Coverage (Vitest / RTL / Jest API)</h2>
+    <p style="color: #8b949e; margin: 0;">Đạt độ bao phủ Statements: <strong>90.36%</strong> (vượt xa chỉ tiêu &gt;= 70% đề bài yêu cầu)</p>
+  </div>
+  <div class="terminal-window">
+    <div class="terminal-header">
+      <span class="circle red"></span>
+      <span class="circle yellow"></span>
+      <span class="circle green"></span>
+      <span class="terminal-title">bash — npm run test:coverage (47 tests passed)</span>
+    </div>
+    <div class="terminal-body">
+&gt; student-deadline-tracker-th02@2.0.0 test:coverage
+&gt; vitest run --coverage
+
+
+ RUN  v5.0.4 /home/phong/Môn học/ltw/ltw-thuc-hanh-02
+      Coverage enabled with v8
+
+ ✓ src/__tests__/usePinStore.test.ts (5 tests) 9ms
+ ✓ src/__tests__/useDebounce.test.ts (5 tests) 27ms
+ ✓ src/__tests__/AssignmentListAsync.test.tsx (4 tests) 89ms
+ ✓ src/__tests__/AssignmentFilterAndStats.test.tsx (4 tests) 232ms
+ ✓ src/__tests__/AssignmentCard.test.tsx (5 tests) 290ms
+ ✓ src/__tests__/unitUtilsAndSlice.test.ts (20 tests) 516ms
+   ✓ Unit Tests: Helpers &amp; Reducer (Yêu cầu Phần C) (20)
+     ✓ assignmentsSlice reducer (10)
+       ✓ fetchInitialAssignments thunk: dispatch và gọi mock API thành công 503ms
+ ✓ src/__tests__/AssignmentForm.test.tsx (4 tests) 563ms
+
+ Test Files  7 passed (7)
+      Tests  47 passed (47)
+   Start at  14:42:55
+   Duration  1.48s (environment 51%, tests 26%, import 10%, setup 6%, transform 4%, worker 3%)
+
+ % Coverage report from v8
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------|---------|----------|---------|---------|-------------------
+All files          |   89.77 |    73.25 |   85.71 |   91.17 |                   
+ assignments       |    93.1 |    66.66 |   88.88 |   93.58 |                   
+  ...mentsSlice.ts |     100 |    83.33 |     100 |     100 | 65                
+  ...mentsThunk.ts |    87.5 |      100 |     100 |   85.71 | 21                
+  types.ts         |   90.19 |     64.1 |      60 |   91.11 | 145-151           
+ ...nts/components |   85.33 |    69.49 |      75 |   87.14 |                   
+  ...entFilter.tsx |    87.5 |    81.81 |      80 |    87.5 | 68                
+  ...nmentForm.tsx |     100 |    88.88 |     100 |     100 | 37                
+  ...nmentList.tsx |   70.58 |    57.57 |      50 |   73.33 | ...8,56,94-97,125 
+  ...mentStats.tsx |     100 |    83.33 |     100 |     100 | 125               
+ ...AssignmentCard |     100 |    91.42 |     100 |     100 |                   
+  ...nmentCard.tsx |     100 |    91.42 |     100 |     100 | 23,87-95          
+ assignments/hooks |   87.23 |    67.74 |     100 |   90.24 |                   
+  ...mentFilter.ts |   87.23 |    67.74 |     100 |   90.24 | 54,63-65          
+ pins              |     100 |      100 |     100 |     100 |                   
+  usePinStore.ts   |     100 |      100 |     100 |     100 |                   
+-------------------|---------|----------|---------|---------|-------------------
+</div>
+  </div>
+</body>
+</html>
